@@ -43,7 +43,16 @@ To learn more about developing your project with Expo, look at the following res
 - [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
 
+
 ## Json Server For Frontend
+
+--install the json-server for development
+```angular2html
+npm install json-server --save-dev
+```
 ```angular2html
 npx json-server data/db.json --port 4000 -s data/shop
 ```
+
+## For Fast Renender
+use flashList 

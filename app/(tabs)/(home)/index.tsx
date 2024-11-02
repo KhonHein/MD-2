@@ -1,11 +1,13 @@
 import Cart from "@/components/shop/Cart";
 import Category from "@/components/shop/Category";
+import Line from "@/components/shop/Line";
+import Product from "@/components/shop/Product";
 import Title from "@/components/shop/Title";
 import { ThemedView } from "@/components/ThemedView";
-import { categories } from "@/data";
+import { categories, products } from "@/data";
 import { FlashList } from "@shopify/flash-list";
 import { Image } from "expo-image";
-import { useNavigation } from "expo-router";
+import { useNavigation ,useRouter} from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -17,13 +19,23 @@ export default function HomeScreen() {
     "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
 
     const navigation = useNavigation();
+    const router = useRouter();
     const [select, setSelect] = useState("uuid1");
+    
     const handleSelect = (id: string) => {
       setSelect(id);
     }
+    const productsList = products.filter(
+      (item) => item.categories_id === select
+    );
+    const goDetail = (id: string) => {
+      router.navigate(`/${id}`);
+      console.log(id)
+    };
     useEffect(() => {
         navigation.setOptions({ headerShown: false });
       }, [navigation]);
+
   return (
     <SafeAreaView style={styles.container}>
       <ThemedView style={styles.titleContainer}>
@@ -44,6 +56,7 @@ export default function HomeScreen() {
         />
         <ThemedView>
           <Title title="Shop By Category" actionText="see all"/>
+          <Line/>
           <FlashList
           data={categories}
           renderItem={({item,index})=><Category {...item} onSelect={handleSelect} select={select}/>}
@@ -52,7 +65,19 @@ export default function HomeScreen() {
           horizontal
           showsHorizontalScrollIndicator={false}
           />
+          <Line/>
           <Title title="Recomended for You" actionText="See All"/>
+        
+          <FlashList
+            data={productsList}
+            renderItem={({ item }) => (
+              <Product {...item} onCallRoute={goDetail} />
+            )}
+            estimatedItemSize={200}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+          />
+
         </ThemedView>
       </ScrollView>
     </SafeAreaView>
