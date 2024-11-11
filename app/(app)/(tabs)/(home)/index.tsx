@@ -29,7 +29,7 @@ export default function HomeScreen() {
       (item) => item.categories_id === select
     );
     const goDetail = (id: string) => {
-      router.navigate(`/${id}`);
+      router.navigate(`/details`);
       console.log(id)
     };
     useEffect(() => {

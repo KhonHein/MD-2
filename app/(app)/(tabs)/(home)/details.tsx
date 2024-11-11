@@ -4,11 +4,11 @@ import { useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Detail = () => {
-  const { id } = useLocalSearchParams();
+  //const { id } = useLocalSearchParams();
   return (
     <SafeAreaView>
       <Text>Detail screen</Text>
-      <Text>Detail screen {id}</Text>
+      {/* <Text>Detail screen {id}</Text> */}
     </SafeAreaView>
   );
 };
