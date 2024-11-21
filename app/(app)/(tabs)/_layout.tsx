@@ -1,11 +1,27 @@
 import { Tabs } from "expo-router";
-import React from "react";
+import React, { useEffect } from "react";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { fetchRequiredInfo } from "@/services/redux/requiredInfoSlice";
+import { useAppDispatch } from "@/hooks/useRedux";
+import Toast from "react-native-root-toast";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    fetchInfo();
+  }, []);
+
+  const fetchInfo = async () => {
+    try {
+      await dispatch(fetchRequiredInfo()).unwrap();
+    } catch (error: any) {
+      Toast.show(error, { duration: Toast.durations.LONG });
+    }
+  };
 
   return (
     <Tabs
